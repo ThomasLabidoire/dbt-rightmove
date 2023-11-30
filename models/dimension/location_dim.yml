@@ -1,0 +1,30 @@
+
+version: 2
+
+models:
+  - name: location_dim
+    config:
+      materialized: table
+      unique_key: location_id
+      tags:
+        - transform
+    columns:
+      - name: location_id
+        tests:
+          - unique
+          - not_null
+      - name: postcode_district
+        tests:
+          - relationships:
+              to: ref('postcode_district_dim')
+              field: postcode_district
+      - name: latitude
+        tests:
+          - is_within_range:
+              lower_bound: -90
+              upper_bound: 90
+      - name: longitude
+        tests:
+          - is_within_range:
+              lower_bound: -180
+              upper_bound: 180

@@ -1,0 +1,35 @@
+
+version: 2
+
+models:
+  - name: property_dim
+    config:
+      materialized: table
+      unique_key: property_id
+      tags:
+        - transform
+    columns:
+      - name: property_id
+        tests:
+          - unique
+          - not_null
+      - name: agent_id
+        tests:
+          - relationships:
+              to: ref('agent_dim')
+              field: agent_id
+      - name: location_id
+        tests:
+          - relationships:
+              to: ref('location_dim')
+              field: location_id
+      - name: property_type_id
+        tests:
+          - relationships:
+              to: ref('property_type_dim')
+              field: property_type_id
+      - name: price
+        tests:
+          - is_within_range:
+              lower_bound: 10000
+              upper_bound: 5000000

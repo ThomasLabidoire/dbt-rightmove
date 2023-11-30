@@ -1,0 +1,10 @@
+
+version: 2
+
+models:
+  - name: property_raw
+    config:    
+      submission_method: cluster
+      materialized: table
+      tags:
+        - python

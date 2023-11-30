@@ -1,0 +1,15 @@
+
+version: 2
+
+models:
+  - name: property_base
+    config:
+      materialized: table
+      unique_key: property_id
+      tags:
+        - transform
+    columns:
+      - name: property_id
+        tests:
+          - unique
+          - not_null

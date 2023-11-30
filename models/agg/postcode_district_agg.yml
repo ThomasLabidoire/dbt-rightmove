@@ -1,0 +1,15 @@
+
+version: 2
+
+models:
+  - name: postcode_district_agg
+    config:
+      materialized: table
+      unique_key: postcode_district
+      tags:
+        - transform
+    columns:
+      - name: postcode_district
+        tests:
+          - unique
+          - not_null

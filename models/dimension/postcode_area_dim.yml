@@ -1,0 +1,25 @@
+
+version: 2
+
+models:
+  - name: postcode_area_dim
+    config:
+      materialized: table
+      unique_key: postcode_area
+      tags:
+        - transform
+    columns:
+      - name: postcode_area
+        tests:
+          - unique
+          - not_null
+      - name: latitude
+        tests:
+          - is_within_range:
+              lower_bound: -90
+              upper_bound: 90
+      - name: longitude
+        tests:
+          - is_within_range:
+              lower_bound: -180
+              upper_bound: 180
